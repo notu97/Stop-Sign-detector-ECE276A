@@ -4,28 +4,6 @@ import statistics as stat
 a=np.load('STOP.npy')
 b=np.load('Not_STOP.npy')
 
-# c_not_red=0
-# c_red=0
-# for i in Y:
-#     if i==0:
-#         c_not_red+=1
-#     else:
-#         c_red+=1
-
-# a=np.zeros((c_red,3))
-# b=np.zeros((c_not_red,3))
-# idx1=0
-# idx2=0
-# for i in range(0,len(Y)):
-#     if Y[i]==0:
-#         b[idx1,:]=X[i,:]
-#         idx1= idx1+1
-#     else:
-#         a[idx2,:]=X[i,:]
-#         idx2 = idx2+1
-# np.save('STOP',a)
-# np.save('Not_STOP',b)
-
 P_red=len(a)/(len(a)+len(b))
 mu_red=np.array([stat.mean(a[:,0]),stat.mean(a[:,1]),stat.mean(a[:,2])]).T
 cov_red=np.cov(np.transpose(a))
