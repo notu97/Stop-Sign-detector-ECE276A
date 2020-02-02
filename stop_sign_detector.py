@@ -197,7 +197,7 @@ class StopSignDetector():
                 x_topR=x+w
                 y_topR=(np.shape(img)[0]-y)
                 boxes.append([x_bottom,y_bottom,x_topR,y_topR])
-                cv2.imshow('Image with box',cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),3 ))
+                # cv2.imshow('Image with box',cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),3 ))
                 # print('Coord: %f no_sides: %f h/w:  %f Area: %f Area Ratio:  ',boxes,no_sides,h/w,cv2.contourArea(c),ar_ratio)
                 print('Coord: ',boxes)
                 print('no_sides:  ',no_sides)
@@ -214,7 +214,7 @@ class StopSignDetector():
                 x_topR=x+w
                 y_topR=(np.shape(img)[0]-y)
                 boxes.append([x_bottom,y_bottom,x_topR,y_topR])
-                cv2.imshow('Image with box',cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),3 ))
+                # cv2.imshow('Image with box',cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),3 ))
                 # print('Coord: %f no_sides: %f h/w:  %f Area: %f Area Ratio:  ',boxes,no_sides,h/w,cv2.contourArea(c),ar_ratio)
                 print('Coord: ',boxes)
                 print('no_sides:  ',no_sides)
