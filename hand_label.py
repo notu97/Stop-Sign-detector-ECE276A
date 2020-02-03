@@ -56,8 +56,8 @@ def label(file_name,train_folder):
 if __name__ == '__main__':
     print('Extracting Not_red pixel data')
     # label('Not_STOP','Training_set_Not_Stop')
-    label('Not_STOP','Data')
+    label('Not_STOP','Not_red Dataset')
 
     print('Extracting red pixel data')
-    label('STOP','Training_set_Stop')
+    label('STOP','Red Dataset')
     
