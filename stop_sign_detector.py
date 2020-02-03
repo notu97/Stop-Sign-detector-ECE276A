@@ -145,8 +145,8 @@ class StopSignDetector():
 #                 print('h/w:  ', h/w)
 #                 print('Area:  ',cv2.contourArea(c))
 #                 print('Area Ratio:  ',ar_ratio)
-            else:
-                print('else statement')
+#             else:
+#                 print('else statement')
                  # print('Coord: %f no_sides: %f h/w:  %f Area: %f Area Ratio:  ',boxes,no_sides,h/w,cv2.contourArea(c),ar_ratio)
                 
 #                 print('Coord:  ',boxes)
