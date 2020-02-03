@@ -15,55 +15,15 @@ from scipy.stats import multivariate_normal
 
 class StopSignDetector():
     def __init__(self):
-        # self.w_t= np.array([-43757879.65, -32097226.35, 38837448.65000001, -156738.5]).T
-        
-        # self.P_red=0.1344 #0.25
-        # self.P_red=0.13438040382573196
-        # self.mu_red=np.array([35,121,197]).T
-        # self.cov_red=np.array([[591.45155472, -20.94044726,  46.13271828],
-        #                       [-20.94044726,  46.88363104, -64.36513948],
-        #                       [46.13271828, -64.36513948, 671.58614356]])
-        # # self.P_not_red=0.8656
-        # self.P_not_red=0.865619596174268
-        # self.mu_not_red= np.array([122, 138,  109]).T  #np.array([128, 146,  99]).T
-        # self.cov_not_red=np.array([[2854.59964823,  492.57052821, -691.08471754],
-        #                            [ 492.57052821,  290.72779321, -341.43670531],
-        #                            [-691.08471754, -341.43670531,  444.17108817]])
-        
-#         self.P_red= 0.012098
-#         self.P_not_red=0.987901
-
-#         # P_red=np.around(P_red,4)
-#         self.mu_red=np.array([53.85255293,46.50559933,160.38144411]).T
-#         self.cov_red=np.array([[3635.21794126,3850.27150293, 1267.46298175],
-#                                [3850.27150293,4325.5668949,1268.41744937],
-#                                [1267.46298175, 1268.41744937,3123.23525558]])
-#         # self.P_red
-
-# # P_not_red=np.around(P_not_red,4)
-#         self.mu_not_red=np.array([134.67835746,127.82135958,117.79590885]).T
-#         self.cov_not_red=np.array([[5152.30905618,3929.185,3032.51],
-#                                     [3929.18525226,3596.1, 3231.53],
-#                                     [3032.51053292,3231.52661721,3489.2491608]])
-        
+                
         self.P_red= np.load('P_red.npy')
         self.P_not_red=np.load('P_not_red.npy')
 
-        # P_red=np.around(P_red,4)
         self.mu_red=np.load('mu_red.npy').T
         self.cov_red=np.load('cov_red.npy')
-        # self.P_red
-
-# P_not_red=np.around(P_not_red,4)
+                
         self.mu_not_red=np.load('mu_not_red.npy').T
         self.cov_not_red=np.load('cov_not_red.npy')
-        
-
-
-
-        # self.cov_not_red=np.array([[2385.17114148,  528.08238416, -761.96467185],
-        #                           [ 528.08238416,  342.5737569,  -389.96644143],
-        #                           [-761.96467185, -389.96644143,  480.37695904]])
         
         '''
         Initilize your stop sign detector with the attributes you need,
@@ -83,10 +43,6 @@ class StopSignDetector():
         mask_img - a binary image with 1 if the pixel in the original image is red and 0 otherwise
         '''
         # YOUR CODE HERE
-        # input_img=img
-        # input_img=cv2.imread('27.jpg')
-        #input_img = cv2.blur(img,(5,5))
-        # test_img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
         gamma=2
         invGamma=1/gamma
         table=np.array([((i / 255.0) ** invGamma) * 255 for i in np.arange(0, 256)]).astype("uint8") 
@@ -142,12 +98,7 @@ class StopSignDetector():
         # blurred = cv2.GaussianBlur(gray, (5, 5), 0)
         thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY)[1]
         print(img_res)
-        # if img_res<=200000:
-        #     kernel = np.ones((2,2),np.uint8)
-        #     thresh = cv2.erode(thresh,kernel,iterations = 1)
-        #     kernel = np.ones((2,2),np.uint8)
-        #     thresh = cv2.dilate(thresh,kernel,iterations = 2)
-
+      
         cnts, hierarchy = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
         
         boxes=[]
@@ -160,36 +111,7 @@ class StopSignDetector():
             peri= cv2.arcLength(c,True)
             no_sides=len(cv2.approxPolyDP(c,0.04*peri,True))
             x,y,w,h = cv2.boundingRect(c)
-            # cv2.imshow(cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),3 ))
-            # print(bit_mask(1,1))
-            # if (x==0)&(y==0):
-            #     print
-                
-                # print(bit_mask[50,280])
-                # print(bit_mask[100,280])
-                # print(bit_mask[150,280])
-                # print(bit_mask[200,280])
-                # print(bit_mask[250,280])
-                # print(bit_mask[300,280])
-                # print(bit_mask[250, 50])
-                # print(bit_mask[250, 100])
-                # print(bit_mask[250, 150])
-                # print(bit_mask[250, 200])
-                # print(bit_mask[250, 250])
-                # print(bit_mask[250, 300])
-                # print(bit_mask[250, 350])
-                # print(bit_mask[250, 400])
-                # print(bit_mask[250, 450])
-                # print(bit_mask[250, 490])
-
-            # print(no_sides,  cv2.contourArea(c))
-            #shape=sd.detect(c)
-            #     print(shape)
-            #     if shape=="octagon" or shape=="pentagon" or shape=="circle"  and ar_ratio>0.00013:
-            # if img_res>200000:
-            #     hw_upper=1.33
-            #     hw_lower=0.9
-            #     area=
+            
             if no_sides>=4 and no_sides<=12 and ar_ratio>0.0007 and ar_ratio<=0.002 and (h/w)>=0.5 and (h/w)<1.9 and (h/w)>=1.33:
                 print('Hi you are in First if stat')
                 x_bottom=x
@@ -199,11 +121,12 @@ class StopSignDetector():
                 boxes.append([x_bottom,y_bottom,x_topR,y_topR])
                 # cv2.imshow('Image with box',cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),3 ))
                 # print('Coord: %f no_sides: %f h/w:  %f Area: %f Area Ratio:  ',boxes,no_sides,h/w,cv2.contourArea(c),ar_ratio)
-                print('Coord: ',boxes)
-                print('no_sides:  ',no_sides)
-                print('h/w:  ', h/w)
-                print('Area:  ',cv2.contourArea(c))
-                print('Area Ratio:  ',ar_ratio)
+                # lines below were used to get an ideas of the  images in the autograder
+                # print('Coord: ',boxes)
+#                 print('no_sides:  ',no_sides)
+#                 print('h/w:  ', h/w)
+#                 print('Area:  ',cv2.contourArea(c))
+#                 print('Area Ratio:  ',ar_ratio)
                 
 
             elif no_sides>=4 and no_sides<=12 and ar_ratio>0.002 and (h/w)>=0.6 and (h/w)<1.33:
@@ -216,20 +139,21 @@ class StopSignDetector():
                 boxes.append([x_bottom,y_bottom,x_topR,y_topR])
                 # cv2.imshow('Image with box',cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),3 ))
                 # print('Coord: %f no_sides: %f h/w:  %f Area: %f Area Ratio:  ',boxes,no_sides,h/w,cv2.contourArea(c),ar_ratio)
-                print('Coord: ',boxes)
-                print('no_sides:  ',no_sides)
-                print('h/w:  ', h/w)
-                print('Area:  ',cv2.contourArea(c))
-                print('Area Ratio:  ',ar_ratio)
+                # lines below were used to get an ideas of the  images in the autograder
+#                 print('Coord: ',boxes)
+#                 print('no_sides:  ',no_sides)
+#                 print('h/w:  ', h/w)
+#                 print('Area:  ',cv2.contourArea(c))
+#                 print('Area Ratio:  ',ar_ratio)
             else:
                 print('else statement')
-                # print('Coord: %f no_sides: %f h/w:  %f Area: %f Area Ratio:  ',boxes,no_sides,h/w,cv2.contourArea(c),ar_ratio)
+                 # print('Coord: %f no_sides: %f h/w:  %f Area: %f Area Ratio:  ',boxes,no_sides,h/w,cv2.contourArea(c),ar_ratio)
                 
-                print('Coord:  ',boxes)
-                print('no_sides:  ',no_sides)
-                print('h/w:  ', h/w)
-                print('Area:  ',cv2.contourArea(c))
-                print('Area Ratio:  ',ar_ratio)
+#                 print('Coord:  ',boxes)
+#                 print('no_sides:  ',no_sides)
+#                 print('h/w:  ', h/w)
+#                 print('Area:  ',cv2.contourArea(c))
+#                 print('Area Ratio:  ',ar_ratio)
                 # print(no_sides,  cv2.contourArea(c),  h/w, ar_ratio)
             # boxes.sort()
 #               print("sides: %d", no_sides)
