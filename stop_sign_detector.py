@@ -59,7 +59,7 @@ class StopSignDetector():
         prob_red=self.P_red*multivariate_normal(self.mu_red,self.cov_red).pdf(vect_img.T)
         prob_not_red=self.P_not_red*multivariate_normal(self.mu_not_red,self.cov_not_red).pdf(vect_img.T)
         im=np.greater(prob_red,prob_not_red)
-        print(np.count_nonzero(im))
+#         print(np.count_nonzero(im))
         # print()
         mask_img=np.reshape(im,(l,b))
         # print(mask_img)
@@ -97,7 +97,7 @@ class StopSignDetector():
         gray = cv2.cvtColor(masked, cv2.COLOR_BGR2GRAY)
         # blurred = cv2.GaussianBlur(gray, (5, 5), 0)
         thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY)[1]
-        print(img_res)
+#         print(img_res)
       
         cnts, hierarchy = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
         
@@ -113,7 +113,7 @@ class StopSignDetector():
             x,y,w,h = cv2.boundingRect(c)
             
             if no_sides>=4 and no_sides<=12 and ar_ratio>0.0007 and ar_ratio<=0.002 and (h/w)>=0.5 and (h/w)<1.9 and (h/w)>=1.33:
-                print('Hi you are in First if stat')
+#                 print('Hi you are in First if stat')
                 x_bottom=x
                 y_bottom=np.shape(img)[0]-(y+h)
                 x_topR=x+w
@@ -131,7 +131,7 @@ class StopSignDetector():
 
             elif no_sides>=4 and no_sides<=12 and ar_ratio>0.002 and (h/w)>=0.6 and (h/w)<1.33:
                 # or np.around(ar_ratio,3)==0.001
-                print('Hi you are in if stat')
+#                 print('Hi you are in if stat')
                 x_bottom=x
                 y_bottom=np.shape(img)[0]-(y+h)
                 x_topR=x+w
@@ -189,6 +189,7 @@ if __name__ == '__main__':
         # cv2.destroyAllWindows()
         #(2) Stop sign bounding box
         boxes = my_detector.get_bounding_box(img)
+        print(boxes)
         #The autograder checks your answers to the functions segment_image() and get_bounding_box()
         #Make sure your code runs as expected on the testset before submitting to Gradescope
 
