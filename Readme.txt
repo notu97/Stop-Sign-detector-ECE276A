@@ -1,4 +1,4 @@
-File Description:
+#File Description:
 
 stop_sign_detector.py : Main program which creates the segmetation mask and detects the stop signs in an image by drawing a green color bounding box around it.
 
