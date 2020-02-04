@@ -14,5 +14,3 @@ train.py : This file was used to train and find the classifer parameters for the
 
 hand_label.py : This file was used to select the red and not red pixels and label them accordingly. The roiploy1.py file was imported into this file to select the pixels ROI and build the training dataset for red and not_red class.
 
-A Sample image is shown below:
-![img_72_op](https://user-images.githubusercontent.com/15217992/73789720-257d1200-4754-11ea-8769-8d22403fb724.PNG)
